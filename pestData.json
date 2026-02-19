@@ -1,0 +1,214 @@
+{
+  "major_crop_pest_dataset": [
+    {
+      "Crop": "Rice",
+      "Pest Name": "Stem Borer",
+      "Symptoms": "Dead heart in young plants, holes in stem",
+      "Solution": "Spray Chlorantraniliprole as per recommended dose",
+      "Prevention": "Use pheromone traps and avoid excessive nitrogen"
+    },
+    {
+      "Crop": "Rice",
+      "Pest Name": "Leaf Blight",
+      "Symptoms": "Brown/black spots on leaves, early drying",
+      "Solution": "Spray 1% Bordeaux mixture or Copper Oxychloride",
+      "Prevention": "Use disease-free seeds and balanced fertilization"
+    },
+    {
+      "Crop": "Rice",
+      "Pest Name": "Brown Planthopper",
+      "Symptoms": "Yellowing, hopper burn patches",
+      "Solution": "Spray Imidacloprid as per guidelines",
+      "Prevention": "Avoid dense planting and excess nitrogen"
+    },
+    {
+      "Crop": "Wheat",
+      "Pest Name": "Rust",
+      "Symptoms": "Orange/brown pustules on leaves",
+      "Solution": "Spray Propiconazole",
+      "Prevention": "Use resistant varieties and timely sowing"
+    },
+    {
+      "Crop": "Wheat",
+      "Pest Name": "Aphids",
+      "Symptoms": "Sticky leaves, yellowing, stunted growth",
+      "Solution": "Spray Neem oil or Imidacloprid",
+      "Prevention": "Encourage natural predators"
+    },
+    {
+      "Crop": "Wheat",
+      "Pest Name": "Loose Smut",
+      "Symptoms": "Black powdery spores in ear heads",
+      "Solution": "Treat seeds with fungicide before sowing",
+      "Prevention": "Use certified disease-free seeds"
+    },
+    {
+      "Crop": "Maize",
+      "Pest Name": "Fall Armyworm",
+      "Symptoms": "Leaves chewed, holes, larvae in whorl",
+      "Solution": "Spray Emamectin Benzoate",
+      "Prevention": "Regular field monitoring and pheromone traps"
+    },
+    {
+      "Crop": "Maize",
+      "Pest Name": "Stem Borer",
+      "Symptoms": "Dead heart, stem tunneling",
+      "Solution": "Apply Carbofuran granules",
+      "Prevention": "Destroy crop residues after harvest"
+    },
+    {
+      "Crop": "Maize",
+      "Pest Name": "Leaf Blight",
+      "Symptoms": "Elongated grey lesions on leaves",
+      "Solution": "Spray Mancozeb",
+      "Prevention": "Ensure proper field sanitation"
+    },
+    {
+      "Crop": "Cotton",
+      "Pest Name": "Pink Bollworm",
+      "Symptoms": "Damaged bolls, lint quality reduced",
+      "Solution": "Spray Spinosad",
+      "Prevention": "Use pheromone traps and resistant hybrids"
+    },
+    {
+      "Crop": "Cotton",
+      "Pest Name": "Whitefly",
+      "Symptoms": "Yellow leaves, honeydew secretion",
+      "Solution": "Spray Thiamethoxam",
+      "Prevention": "Avoid overuse of nitrogen fertilizers"
+    },
+    {
+      "Crop": "Cotton",
+      "Pest Name": "Aphids",
+      "Symptoms": "Curled leaves, sticky residue",
+      "Solution": "Spray Neem oil",
+      "Prevention": "Encourage beneficial insects"
+    },
+    {
+      "Crop": "Sugarcane",
+      "Pest Name": "Early Shoot Borer",
+      "Symptoms": "Dead heart symptoms",
+      "Solution": "Apply Chlorpyrifos",
+      "Prevention": "Remove affected shoots"
+    },
+    {
+      "Crop": "Sugarcane",
+      "Pest Name": "Red Rot",
+      "Symptoms": "Red discoloration inside stalk",
+      "Solution": "Use Carbendazim treatment",
+      "Prevention": "Plant resistant varieties"
+    },
+    {
+      "Crop": "Sugarcane",
+      "Pest Name": "Top Borer",
+      "Symptoms": "Tunneling in tops",
+      "Solution": "Spray recommended insecticide",
+      "Prevention": "Use light traps"
+    },
+    {
+      "Crop": "Soybean",
+      "Pest Name": "Girdle Beetle",
+      "Symptoms": "Stem girdling, wilting",
+      "Solution": "Spray Quinalphos",
+      "Prevention": "Remove and destroy affected plants"
+    },
+    {
+      "Crop": "Soybean",
+      "Pest Name": "Rust",
+      "Symptoms": "Reddish brown pustules",
+      "Solution": "Spray Hexaconazole",
+      "Prevention": "Timely sowing and resistant varieties"
+    },
+    {
+      "Crop": "Soybean",
+      "Pest Name": "Pod Borer",
+      "Symptoms": "Holes in pods",
+      "Solution": "Spray Indoxacarb",
+      "Prevention": "Field sanitation and crop rotation"
+    },
+    {
+      "Crop": "Groundnut",
+      "Pest Name": "Leaf Miner",
+      "Symptoms": "Mines in leaves",
+      "Solution": "Spray Chlorpyrifos",
+      "Prevention": "Early sowing and crop rotation"
+    },
+    {
+      "Crop": "Groundnut",
+      "Pest Name": "Tikka Disease",
+      "Symptoms": "Brown leaf spots",
+      "Solution": "Spray Mancozeb",
+      "Prevention": "Use resistant varieties"
+    },
+    {
+      "Crop": "Groundnut",
+      "Pest Name": "White Grub",
+      "Symptoms": "Root damage, wilting",
+      "Solution": "Apply recommended soil insecticide",
+      "Prevention": "Deep ploughing before sowing"
+    },
+    {
+      "Crop": "Millets",
+      "Pest Name": "Shoot Fly",
+      "Symptoms": "Dead heart symptom",
+      "Solution": "Spray recommended insecticide",
+      "Prevention": "Early sowing and seed treatment"
+    },
+    {
+      "Crop": "Millets",
+      "Pest Name": "Ergot",
+      "Symptoms": "Honeydew secretion on grains",
+      "Solution": "Spray fungicide",
+      "Prevention": "Use clean seeds"
+    },
+    {
+      "Crop": "Millets",
+      "Pest Name": "Downy Mildew",
+      "Symptoms": "Yellowing and stunted growth",
+      "Solution": "Spray Metalaxyl",
+      "Prevention": "Use resistant varieties"
+    },
+    {
+      "Crop": "Pulses",
+      "Pest Name": "Pod Borer",
+      "Symptoms": "Holes in pods",
+      "Solution": "Spray Spinosad",
+      "Prevention": "Install pheromone traps"
+    },
+    {
+      "Crop": "Pulses",
+      "Pest Name": "Wilt",
+      "Symptoms": "Sudden plant wilting",
+      "Solution": "Seed treatment with fungicide",
+      "Prevention": "Crop rotation"
+    },
+    {
+      "Crop": "Pulses",
+      "Pest Name": "Aphids",
+      "Symptoms": "Yellowing and curling leaves",
+      "Solution": "Spray Neem oil",
+      "Prevention": "Encourage natural predators"
+    },
+    {
+      "Crop": "Vegetables",
+      "Pest Name": "Fruit Borer",
+      "Symptoms": "Holes in fruits",
+      "Solution": "Spray Indoxacarb",
+      "Prevention": "Remove infected fruits"
+    },
+    {
+      "Crop": "Vegetables",
+      "Pest Name": "Powdery Mildew",
+      "Symptoms": "White powdery growth",
+      "Solution": "Spray Sulfur-based fungicide",
+      "Prevention": "Avoid overhead irrigation"
+    },
+    {
+      "Crop": "Vegetables",
+      "Pest Name": "Thrips",
+      "Symptoms": "Silver streaks on leaves",
+      "Solution": "Spray Spinosad",
+      "Prevention": "Maintain field hygiene"
+    }
+  ]
+}

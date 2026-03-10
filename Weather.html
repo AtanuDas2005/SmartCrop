@@ -3,148 +3,147 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Smart Weather Advisory</title>
+
+<title>Smart Weather Dashboard</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
+
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family: 'Segoe UI', sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
 }
 
 body{
-    min-height:100vh;
-    background: linear-gradient(135deg,#1b5e20,#4caf50);
-    color:white;
+height:100vh;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
 }
 
-/* NAVBAR */
-.navbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:20px 40px;
+.container{
+width:1150px;
+height:620px;
+background:rgba(0,0,0,0.55);
+backdrop-filter:blur(15px);
+border-radius:25px;
+padding:40px;
+display:flex;
+justify-content:space-between;
+box-shadow:0 20px 60px rgba(0,0,0,0.6);
 }
 
-.logo{
-    font-size:22px;
-    font-weight:bold;
+/* LEFT PANEL */
+
+.left{
+width:70%;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
 }
 
-.location-btn{
-    padding:8px 16px;
-    border:none;
-    border-radius:6px;
-    background:white;
-    color:#1b5e20;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
+.location{
+font-size:15px;
+opacity:.7;
 }
 
-.location-btn:hover{
-    background:#e8f5e9;
+.temp{
+font-size:90px;
+font-weight:200;
 }
 
-/* HERO */
-.hero{
-    padding:40px;
+.desc{
+font-size:26px;
+opacity:.9;
+margin-bottom:10px;
+text-transform:capitalize;
 }
 
-.temperature{
-    font-size:90px;
-    font-weight:300;
+.weatherIcon{
+font-size:120px;
+color:#ffd54f;
+margin:10px 0;
 }
 
-.city-name{
-    font-size:22px;
-    opacity:0.9;
+.stats{
+display:flex;
+gap:50px;
+margin-top:10px;
 }
 
-/* GRID */
-.weather-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:30px;
-    padding:40px;
+.stat{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:16px;
+opacity:.9;
 }
 
-.card{
-    background: rgba(255,255,255,0.1);
-    padding:30px;
-    border-radius:15px;
-    backdrop-filter: blur(10px);
-    transition:0.3s;
+.stat i{
+color:#ffcc80;
 }
 
-.card:hover{
-    background: rgba(255,255,255,0.2);
-    transform:translateY(-5px);
+.chart{
+width:100%;
+height:150px;
+margin-top:20px;
 }
 
-.card h3{
-    margin-bottom:10px;
+button{
+padding:12px 22px;
+border:none;
+border-radius:10px;
+background:linear-gradient(135deg,#ff9800,#ffb74d);
+color:white;
+font-size:15px;
+cursor:pointer;
+margin-top:10px;
+transition:.3s;
 }
 
-.card .value{
-    font-size:30px;
-    font-weight:bold;
+button:hover{
+transform:scale(1.05);
 }
 
-/* Suggestions */
-.suggestions{
-    padding:40px;
+/* RIGHT PANEL */
+
+.right{
+width:260px;
+background:rgba(255,255,255,0.08);
+border-radius:20px;
+padding:20px;
 }
 
-.suggestions h2{
-    margin-bottom:20px;
+.right h3{
+margin-bottom:15px;
 }
 
-ul{
-    padding-left:20px;
+.day{
+padding:12px 0;
+border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
-.status{
-    padding:0 40px;
-    opacity:0.8;
-    font-size:14px;
+.day:last-child{
+border:none;
 }
 
-@media(max-width:600px){
-    .temperature{
-        font-size:60px;
-    }
-}
-/* Background Image Layer */
-.bg-image{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:url("images/summer.png") center/cover no-repeat;
-    filter:blur(15px);
-    transform:scale(1.1);
-    z-index:-2;
-    transition:background 0.8s ease;
+.dayTop{
+display:flex;
+justify-content:space-between;
+font-size:15px;
 }
 
-/* Dark overlay for readability */
-body::before{
-    content:"";
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.35);
-    z-index:-1;
-}
-
-/* Remove gradient background */
-body{
-    background:none;
+.rainProb{
+font-size:12px;
+opacity:.7;
+color:#90caf9;
+margin-top:3px;
 }
 
 </style>
@@ -152,150 +151,224 @@ body{
 
 <body>
 
-<div class="navbar">
-    <div class="logo">🌾 Smart Crop Advisory</div>
-    <button class="location-btn" onclick="getLocationWeather()">📍 Use Current Location</button>
+<div class="container">
+
+<!-- LEFT SIDE -->
+
+<div class="left">
+
+<div>
+
+<div class="location" id="location">Detecting location...</div>
+
+<div class="weatherIcon">
+<i class="fas fa-cloud-sun"></i>
 </div>
 
-<div id="bgImage" class="bg-image"></div>
+<div class="temp" id="temp">--°</div>
 
-<div class="hero">
-    <div class="temperature" id="temp">--°</div>
-    <div class="city-name" id="city">Click button to detect location</div>
+<div class="desc" id="desc">Weather</div>
+
+<div class="stats">
+
+<div class="stat">
+<i class="fas fa-wind"></i>
+<span id="wind">--</span>
 </div>
 
-<div class="weather-grid">
-    <div class="card">
-        <h3>💧 Humidity</h3>
-        <div class="value" id="humidity">-- %</div>
-    </div>
-
-    <div class="card">
-        <h3>🌧 Rainfall</h3>
-        <div class="value" id="rain">-- mm</div>
-    </div>
+<div class="stat">
+<i class="fas fa-droplet"></i>
+<span id="humidity">--</span>
 </div>
 
-<div class="suggestions">
-    <h2>🌱 Recommended Crops</h2>
-    <ul id="cropList"></ul>
+<div class="stat">
+<i class="fas fa-cloud-rain"></i>
+<span id="rain">--</span>
 </div>
 
-<div class="status" id="status"></div>
+</div>
+
+<button onclick="getLocation()">📍 Use My Location</button>
+
+</div>
+
+<div class="chart">
+<canvas id="tempChart"></canvas>
+</div>
+
+</div>
+
+
+<!-- RIGHT FORECAST -->
+
+<div class="right">
+
+<h3>5 Day Forecast</h3>
+
+<div id="forecast"></div>
+
+</div>
+
+</div>
 
 <script>
 
-const API_KEY = "149e50f478f10841ac05ac157724e8d7";
+const apiKey = "e9f87e5a4b1a26a53eb6a3fed7c5a704";
 
-window.onload = () => {
-    getLocationWeather();
-};
+let chart;
 
-function getLocationWeather(){
-    const status = document.getElementById("status");
+/* LOCATION */
 
-    if(!navigator.geolocation){
-        status.innerText = "Geolocation not supported.";
-        return;
-    }
-
-    status.innerText = "Detecting your location...";
-
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            fetchWeather(position.coords.latitude, position.coords.longitude);
-        },
-        (error) => {
-            status.innerText = "Location permission denied.";
-        }
-    );
+function getLocation(){
+if(navigator.geolocation){
+navigator.geolocation.getCurrentPosition(showPosition);
+}
 }
 
-async function fetchWeather(lat, lon){
-    const status = document.getElementById("status");
+/* POSITION */
 
-    try{
-        status.innerText = "Fetching weather data...";
+function showPosition(position){
 
-        const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
-        );
+let lat = position.coords.latitude;
+let lon = position.coords.longitude;
 
-        if(!response.ok){
-            throw new Error("Network response not OK");
-        }
+getWeather(lat,lon);
+getForecast(lat,lon);
 
-        const data = await response.json();
-
-        console.log("API RESPONSE:", data);
-
-        if(data.cod !== 200){
-            status.innerText = "API Error: " + data.message;
-            return;
-        }
-
-        const temperature = data.main?.temp ?? "--";
-        const humidity = data.main?.humidity ?? "--";
-        const rainfall = data.rain?.["1h"] ?? 0;
-
-        document.getElementById("temp").innerText = Math.round(temperature) + "°C";
-        document.getElementById("city").innerText = data.name;
-        document.getElementById("humidity").innerText = humidity + " %";
-        document.getElementById("rain").innerText = rainfall + " mm";
-
-        generateSuggestions(temperature, humidity, rainfall);
-        updateBackground(temperature, rainfall);
-
-        function updateBackground(temp, rain){
-    const bg = document.getElementById("bgImage");
-
-    if(rain > 3){
-        bg.style.background = 'url("images/rain.jpg") center/cover no-repeat';
-    }
-    else if(temp < 18){
-        bg.style.background = 'url("images/winter.jpg") center/cover no-repeat';
-    }
-    else{
-        bg.style.background = 'url("images/summer.jpg") center/cover no-repeat';
-    }
 }
 
-        status.innerText = "Weather updated successfully.";
+/* CURRENT WEATHER */
 
-    }catch(error){
-        console.error("FETCH ERROR:", error);
-        status.innerText = "Error fetching weather. Check console.";
-    }
+function getWeather(lat,lon){
+
+let url=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+fetch(url)
+.then(res=>res.json())
+.then(data=>{
+
+document.getElementById("location").innerText =
+data.name+", "+data.sys.country;
+
+document.getElementById("temp").innerText =
+Math.round(data.main.temp)+"°C";
+
+document.getElementById("desc").innerText =
+data.weather[0].description;
+
+document.getElementById("wind").innerText =
+data.wind.speed+" m/s";
+
+document.getElementById("humidity").innerText =
+data.main.humidity+"%";
+
+if(data.rain){
+document.getElementById("rain").innerText=data.rain["1h"]+" mm";
+}else{
+document.getElementById("rain").innerText="0 mm";
 }
 
-function generateSuggestions(temp, humidity, rain){
-    const cropList = document.getElementById("cropList");
-    cropList.innerHTML = "";
+});
 
-    let crops = [];
+}
 
-    if(temp >= 32 && rain < 5){
-        crops = ["Millets (Bajra, Ragi)", "Groundnut", "Cotton", "Maize"];
-    }
-    else if(temp >= 22 && temp < 32 && rain >= 5){
-        crops = ["Rice", "Sugarcane", "Soybean"];
-    }
-    else if(temp < 20){
-        crops = ["Wheat", "Barley", "Mustard"];
-    }
-    else{
-        crops = ["Vegetables", "Pulses"];
-    }
+/* FORECAST */
 
-    crops.forEach(crop => {
-        const li = document.createElement("li");
-        li.innerText = crop;
-        cropList.appendChild(li);
-    });
+function getForecast(lat,lon){
+
+let url=`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+
+fetch(url)
+.then(res=>res.json())
+.then(data=>{
+
+let forecast=document.getElementById("forecast");
+forecast.innerHTML="";
+
+let temps=[];
+let labels=[];
+
+for(let i=0;i<5;i++){
+
+let item=data.list[i*8];
+
+let date=new Date(item.dt_txt);
+
+let day=date.toDateString().slice(0,3);
+
+let temp=Math.round(item.main.temp);
+
+let rainProb=Math.round(item.pop*100);
+
+let rainMM=item.rain ? item.rain["3h"] : 0;
+
+forecast.innerHTML+=`
+
+<div class="day">
+
+<div class="dayTop">
+
+<span>${day}</span>
+
+<span><i class="fas fa-cloud"></i> ${temp}°</span>
+
+</div>
+
+<div class="rainProb">
+
+🌧 ${rainProb}% chance • ${rainMM} mm
+
+</div>
+
+</div>
+
+`;
+
+temps.push(temp);
+labels.push(day);
+
+}
+
+createChart(labels,temps);
+
+});
+
+}
+
+/* CHART */
+
+function createChart(labels,temps){
+
+if(chart) chart.destroy();
+
+chart=new Chart(document.getElementById("tempChart"),{
+
+type:'line',
+
+data:{
+labels:labels,
+datasets:[{
+data:temps,
+borderColor:"#ff9800",
+backgroundColor:"rgba(255,152,0,0.2)",
+tension:.4,
+fill:true
+}]
+},
+
+options:{
+plugins:{legend:{display:false}},
+scales:{
+x:{ticks:{color:"white"}},
+y:{ticks:{color:"white"}}
+}
+}
+
+});
+
 }
 
 </script>
-
 
 </body>
 </html>

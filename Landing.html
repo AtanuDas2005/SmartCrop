@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Crop</title>
+
+  <!-- Spline Viewer Script -->
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.58/build/spline-viewer.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: black;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    spline-viewer {
+      width: 100vw;
+      height: 100vh;
+      display: block;
+    }
+
+    /* ===== GLASS BAR ===== */
+    .navbar {
+      position: fixed;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50%;                /* Half page width */
+      min-width: 280px;
+      padding: 12px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+
+      z-index: 1000;
+    }
+
+    .btn {
+      padding: 8px 24px;
+      border-radius: 30px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: transparent;
+      color: white;
+    }
+
+    .btn:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .btn-primary {
+      background: white;
+      color: black;
+      border: none;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: #eaeaea;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .navbar {
+        width: 80%;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- Half Glass Bar -->
+  <div class="navbar">
+    <button class="btn">Login</button>
+    <button class="btn btn-primary">Sign Up</button>
+  </div>
+
+  <!-- Spline Scene -->
+  <spline-viewer url="https://prod.spline.design/NEhj9wCntf0wgmgm/scene.splinecode"></spline-viewer>
+
+</body>
+</html>

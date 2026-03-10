@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>SmartCrop Market Tracker</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:
+linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+url("bg2.jpg");
+background-size:cover;
+background-position:center;
+background-repeat:no-repeat;
+background-attachment:fixed;
+color:white;
+text-align:center;
+padding-top:50px;
+}
+
+h1{
+margin-bottom:30px;
+}
+
+/* Layout */
+.wrapper{
+display:flex;
+justify-content:center;
+align-items:flex-start;
+gap:30px;
+}
+
+/* Main Card */
+.container{
+background:rgba(31,59,68,0.9);
+padding:35px;
+border-radius:12px;
+width:420px;
+box-shadow:0 0 20px rgba(0,0,0,0.4);
+}
+
+/* Info Box */
+.infoBox{
+background:rgba(27,47,54,0.9);
+padding:20px;
+border-radius:10px;
+width:260px;
+text-align:left;
+box-shadow:0 0 15px rgba(0,0,0,0.4);
+}
+
+.infoBox h3{
+color:#00e5ff;
+margin-bottom:10px;
+}
+
+.infoBox p{
+font-size:14px;
+line-height:1.5;
+}
+
+/* Inputs */
+select,button{
+padding:12px;
+margin:10px;
+width:85%;
+border:none;
+border-radius:6px;
+font-size:15px;
+}
+
+select{
+background:white;
+color:black;
+}
+
+button{
+background:#00c6ff;
+color:white;
+cursor:pointer;
+font-weight:bold;
+transition:0.3s;
+}
+
+button:hover{
+background:#0099cc;
+}
+
+/* Result Box */
+#result{
+margin-top:25px;
+font-size:18px;
+line-height:1.6;
+background:#2b4c55;
+padding:20px;
+border-radius:10px;
+}
+
+.price{
+font-size:22px;
+font-weight:bold;
+color:#00e5ff;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>🌾 SmartCrop Market Price Tracker</h1>
+
+<div class="wrapper">
+
+<div class="container">
+
+<select id="crop">
+<option value="Tomato">Tomato</option>
+<option value="Potato">Potato</option>
+<option value="Onion">Onion</option>
+<option value="Rice">Rice</option>
+<option value="Wheat">Wheat</option>
+</select>
+
+<select id="state">
+
+<option value="">Select State</option>
+<option>Andhra Pradesh</option>
+<option>Assam</option>
+<option>Bihar</option>
+<option>Chhattisgarh</option>
+<option>Gujarat</option>
+<option>Haryana</option>
+<option>Karnataka</option>
+<option>Madhya Pradesh</option>
+<option>Maharashtra</option>
+<option>Odisha</option>
+<option>Punjab</option>
+<option>Rajasthan</option>
+<option>Tamil Nadu</option>
+<option>Uttar Pradesh</option>
+<option>West Bengal</option>
+
+</select>
+
+<button onclick="getPrice()">Get Market Price</button>
+
+<div id="result"></div>
+
+</div>
+
+<!-- Info Box -->
+<div class="infoBox">
+
+<h3>ℹ Modal Price</h3>
+
+<p>
+Modal price is the <b>most common price</b> at which a crop is sold in a mandi on that day.
+</p>
+
+<p>
+Mandis record three prices:
+</p>
+
+<p>
+<b>Min Price</b> – Lowest price recorded<br>
+<b>Max Price</b> – Highest price recorded<br>
+<b>Modal Price</b> – Price at which most trades happen
+</p>
+
+<p>
+Prices are reported in <b>₹ per Quintal</b>.<br>
+1 Quintal = <b>100 kg</b>.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+async function getPrice(){
+
+let crop=document.getElementById("crop").value;
+let state=document.getElementById("state").value;
+
+let url="https://api.data.gov.in/resource/9ef84268-d588-465a-a308-a864a43d0070?api-key=579b464db66ec23bdd000001ac0d312470464b196dd10da4a86de8ed&format=json&filters[commodity]="+crop+"&filters[state]="+state;
+
+let response=await fetch(url);
+let data=await response.json();
+
+if(data.records.length===0){
+document.getElementById("result").innerHTML="No data available for this selection.";
+return;
+}
+
+let price=data.records[0];
+
+let minKg=(price.min_price/100).toFixed(2);
+let maxKg=(price.max_price/100).toFixed(2);
+let modalKg=(price.modal_price/100).toFixed(2);
+
+document.getElementById("result").innerHTML=`
+
+<h3>${crop} Market Price</h3>
+
+Market : ${price.market}<br>
+District : ${price.district}<br>
+State : ${price.state}<br><br>
+
+<div class="price">Modal Price</div>
+
+₹${price.modal_price} / Quintal<br>
+₹${modalKg} / Kg<br><br>
+
+Min Price : ₹${price.min_price} / Quintal (₹${minKg}/kg)<br>
+Max Price : ₹${price.max_price} / Quintal (₹${maxKg}/kg)
+
+`;
+
+}
+
+</script>
+
+</body>
+</html>

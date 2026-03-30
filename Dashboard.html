@@ -150,7 +150,80 @@ font-size:36px;
 }
 
 }
+/* ReactBits Focus Logo */
 
+.focus-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.focus-word {
+  position: relative;
+  font-size: 26px;
+  font-weight: 900;
+  color: white;
+}
+
+.focus-frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 3px solid #ffd54f;
+  filter: drop-shadow(0 0 6px #ffd54f);
+  border-radius: 3px;
+}
+
+.top-left {
+  top: -6px;
+  left: -6px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.top-right {
+  top: -6px;
+  right: -6px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.bottom-left {
+  bottom: -6px;
+  left: -6px;
+  border-right: none;
+  border-top: none;
+}
+
+.bottom-right {
+  bottom: -6px;
+  right: -6px;
+  border-left: none;
+  border-top: none;
+}
+/* Language Dropdown */
+
+#languageSwitcher{
+background:rgba(255,255,255,0.1);
+border:1px solid rgba(255,255,255,0.3);
+color:white;
+padding:6px 10px;
+border-radius:8px;
+margin-left:15px;
+cursor:pointer;
+backdrop-filter:blur(5px);
+}
+
+#languageSwitcher option{
+color:black;
+}
 </style>
 
 </head>
@@ -161,13 +234,33 @@ font-size:36px;
 
 <header>
 
-<div class="logo">🌾 Smart Crop</div>
+<div class="focus-container">
+
+<div class="focus-word">
+
+Smart Crop
+
+<div class="focus-frame">
+<div class="corner top-left"></div>
+<div class="corner top-right"></div>
+<div class="corner bottom-left"></div>
+<div class="corner bottom-right"></div>
+</div>
+
+</div>
+
+</div>
 
 <nav>
-<a href="#">Home</a>
-<a href="#">Services</a>
-<a href="#">About</a>
-<a href="#">Contact</a>
+<a href="AGRICULTURE.pdf" target="_blank">Crop Guide</a>
+<a href="https://mail.google.com/mail/?view=cm&fs=1&to=iamatanudas2005@gmail.com&su=SmartCrop%20Support&body=Hello%20I%20want%20to%20contact%20you" target="_blank">
+  Contact
+</a>
+
+<select id="languageSwitcher" onchange="changeLanguage(this.value)">
+<option value="en">English</option>
+<option value="hi">हिन्दी</option>
+</select>
 </nav>
 
 </header>

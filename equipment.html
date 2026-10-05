@@ -1,0 +1,1018 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartCrop | Equipment Network</title>
+
+<style>
+:root {
+    color-scheme: light dark;
+    --green: #2f6b43;
+    --green2: light-dark(#e8f2e9, #26392b);
+    --ink: light-dark(#1e2921, #edf4ee);
+    --muted: light-dark(#6e7b70, #a7b4a9);
+    --surface: light-dark(#fff, #1b241e);
+    --canvas: light-dark(#f4f7f2, #111813);
+    --line: light-dark(#e0e8df, #344238);
+    --accent: light-dark(#d8e8d8, #26392b);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.app {
+    min-height: 100vh;
+    background: var(--canvas);
+}
+
+.topbar {
+    height: 72px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 max(5vw, 24px);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    letter-spacing: -.4px;
+}
+
+.logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background: var(--green);
+    color: white;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+}
+
+.brand span:last-child {
+    color: var(--green);
+}
+
+.topnote {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+main {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 42px 24px 70px;
+}
+
+.eyebrow {
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.heading {
+    font-size: clamp(28px, 4vw, 40px);
+    letter-spacing: -1.4px;
+    margin: 8px 0 10px;
+    line-height: 1.12;
+}
+
+.sub {
+    color: var(--muted);
+    max-width: 650px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.switcher {
+    display: flex;
+    gap: 6px;
+    background: var(--accent);
+    padding: 5px;
+    border-radius: 14px;
+    width: max-content;
+    margin: 30px 0 28px;
+}
+
+.tab {
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tab.active {
+    background: var(--surface);
+    color: var(--green);
+    box-shadow: 0 2px 8px #00000012;
+}
+
+.panel {
+    display: none;
+}
+
+.panel.active {
+    display: block;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 8px 24px #172a1710;
+}
+
+.card h2 {
+    font-size: 19px;
+    margin: 0 0 5px;
+    letter-spacing: -.4px;
+}
+
+.helper {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0 0 22px;
+}
+
+.formgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.field.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-size: 12px;
+    font-weight: 750;
+    color: var(--ink);
+}
+
+input, select, textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    background: var(--canvas);
+    color: var(--ink);
+    border-radius: 10px;
+    padding: 12px 13px;
+    font: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px #2f6b431a;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 88px;
+}
+
+.upload {
+    border: 1.5px dashed #a7bba9;
+    border-radius: 12px;
+    background: var(--canvas);
+    padding: 18px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.upload strong {
+    display: block;
+    font-size: 13px;
+    margin: 5px;
+}
+
+.upload small {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.upload input {
+    display: none;
+}
+
+.preview {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.preview img {
+    width: 70px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.btn {
+    border: 0;
+    border-radius: 11px;
+    background: var(--green);
+    color: #fff;
+    padding: 13px 18px;
+    font-weight: 750;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    filter: brightness(1.08);
+}
+
+.btn.secondary {
+    background: var(--green2);
+    color: var(--green);
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.aside {
+    background: var(--green);
+    color: #f3fff3;
+    border-radius: 18px;
+    padding: 24px;
+    position: sticky;
+    top: 20px;
+}
+
+.aside h3 {
+    font-size: 20px;
+    line-height: 1.2;
+    margin: 0 0 10px;
+}
+
+.aside p {
+    font-size: 13px;
+    line-height: 1.65;
+    color: #e0eee2;
+    margin: 0;
+}
+
+.aside ul {
+    padding-left: 18px;
+    font-size: 13px;
+    line-height: 1.9;
+    color: #e0eee2;
+}
+
+.tip {
+    border-top: 1px solid #ffffff3b;
+    padding-top: 15px;
+    margin-top: 20px;
+    font-size: 12px;
+    color: #e0eee2;
+}
+
+.toolbar {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.toolbar h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.search {
+    max-width: 320px;
+}
+
+.listings {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.equipment {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.equipment img {
+    width: 100%;
+    height: 165px;
+    object-fit: cover;
+    background: var(--accent);
+}
+
+.equipbody {
+    padding: 15px;
+}
+
+.equiphead {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.equiphead h3 {
+    font-size: 16px;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.price {
+    font-size: 15px;
+    font-weight: 850;
+    color: var(--green);
+    white-space: nowrap;
+}
+
+.price small {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.meta {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 10px 0 12px;
+    line-height: 1.65;
+}
+
+.tag {
+    display: inline-block;
+    border-radius: 20px;
+    background: var(--green2);
+    color: var(--green);
+    font-size: 10px;
+    font-weight: 800;
+    padding: 5px 9px;
+}
+
+.equipbody .btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px;
+}
+
+.empty {
+    grid-column: 1 / -1;
+    border: 1px dashed var(--line);
+    border-radius: 16px;
+    padding: 38px;
+    text-align: center;
+    color: var(--muted);
+}
+
+.toast {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #203d29;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 13px;
+    box-shadow: 0 8px 30px #0003;
+    display: none;
+    z-index: 5;
+}
+
+.contactline {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 8px;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 850px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .aside {
+        position: static;
+    }
+
+    .listings {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    main {
+        padding: 30px 16px 50px;
+    }
+
+    .topbar {
+        padding: 0 16px;
+    }
+
+    .topnote {
+        display: none;
+    }
+
+    .switcher {
+        width: 100%;
+    }
+
+    .tab {
+        flex: 1;
+        padding: 11px 8px;
+        font-size: 12px;
+    }
+
+    .formgrid {
+        grid-template-columns: 1fr;
+    }
+
+    .field.full {
+        grid-column: auto;
+    }
+
+    .listings {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    .actions {
+        flex-wrap: wrap;
+    }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header class="topbar">
+    <div class="brand">
+        <div class="logo">✳</div>
+        <div>Smart<span>Crop</span></div>
+    </div>
+    <div class="topnote">
+        Local farm equipment & labour network
+    </div>
+</header>
+
+<main>
+    <div class="eyebrow">Community equipment exchange</div>
+
+    <h1 class="heading">
+        The right tools, right when you need them.
+    </h1>
+
+    <p class="sub">
+        Share equipment with nearby farmers, earn from idle
+        machinery, or find what your field needs without
+        buying it outright.
+    </p>
+
+    <div class="switcher" role="tablist">
+        <button class="tab active" id="rentTab"
+            role="tab" aria-selected="true">
+            ＋ List equipment
+        </button>
+
+        <button class="tab" id="useTab"
+            role="tab" aria-selected="false">
+            ⌕ Find equipment
+        </button>
+    </div>
+
+    <!-- LIST EQUIPMENT SECTION -->
+
+    <section class="panel active" id="rentPanel">
+        <div class="layout">
+
+            <div class="card">
+                <h2>List your equipment</h2>
+
+                <p class="helper">
+                    Add the details farmers need before
+                    they send a rental request.
+                </p>
+
+                <form id="listingForm">
+                    <div class="formgrid">
+
+                        <div class="field full">
+                            <label for="photos">
+                                Equipment photos
+                            </label>
+
+                            <label class="upload" for="photos">
+                                <div style="font-size:23px">＋</div>
+
+                                <strong>
+                                    Upload one or more photos
+                                </strong>
+
+                                <small>
+                                    Show the equipment clearly.
+                                    JPG, PNG or WEBP.
+                                </small>
+
+                                <input id="photos" type="file"
+                                    accept="image/*" multiple>
+                            </label>
+
+                            <div class="preview"
+                                id="photoPreview"></div>
+                        </div>
+
+                        <div class="field">
+                            <label for="name">
+                                Equipment name *
+                            </label>
+
+                            <input id="name" required
+                                placeholder="e.g. Mahindra tractor">
+                        </div>
+
+                        <div class="field">
+                            <label for="category">
+                                Equipment type *
+                            </label>
+
+                            <select id="category" required>
+                                <option value="">
+                                    Choose type
+                                </option>
+                                <option>Tractor</option>
+                                <option>Harvester</option>
+                                <option>Rotavator</option>
+                                <option>Sprayer</option>
+                                <option>Seed drill</option>
+                                <option>Irrigation pump</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="rate">
+                                Rental price (₹) *
+                            </label>
+
+                            <input id="rate" type="number"
+                                min="1" required
+                                placeholder="e.g. 800">
+                        </div>
+
+                        <div class="field">
+                            <label for="unit">
+                                Price charged per
+                            </label>
+
+                            <select id="unit">
+                                <option>Hour</option>
+                                <option>Day</option>
+                                <option>Acre</option>
+                                <option>Session</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="duration">
+                                Minimum / available time
+                            </label>
+
+                            <input id="duration"
+                                placeholder="e.g. 3 hours minimum">
+                        </div>
+
+                        <div class="field">
+                            <label for="condition">
+                                Equipment condition *
+                            </label>
+
+                            <select id="condition" required>
+                                <option value="">
+                                    Select condition
+                                </option>
+                                <option>Like new</option>
+                                <option>Good</option>
+                                <option>Fair</option>
+                                <option>Needs care</option>
+                            </select>
+                        </div>
+
+                        <div class="field">
+                            <label for="location">
+                                Village / area *
+                            </label>
+
+                            <input id="location" required
+                                placeholder="Village, district">
+                        </div>
+
+                        <div class="field">
+                            <label for="availability">
+                                Availability
+                            </label>
+
+                            <input id="availability"
+                                placeholder="e.g. Weekdays, after 9 AM">
+                        </div>
+
+                        <div class="field full">
+                            <label for="details">
+                                Additional details
+                            </label>
+
+                            <textarea id="details"
+                                placeholder="Brand, model, capacity, fuel included?, delivery/pickup, operator included, deposit, etc."></textarea>
+                        </div>
+
+                        <div class="field">
+                            <label for="contact">
+                                Contact number *
+                            </label>
+
+                            <input id="contact" type="tel"
+                                required
+                                placeholder="Phone / WhatsApp number">
+                        </div>
+
+                        <div class="field">
+                            <label for="owner">
+                                Your name
+                            </label>
+
+                            <input id="owner"
+                                placeholder="Name of owner">
+                        </div>
+
+                    </div>
+
+                    <div class="actions">
+                        <button class="btn" type="submit">
+                            Publish listing
+                        </button>
+
+                        <button class="btn secondary"
+                            type="reset" id="clearBtn">
+                            Clear form
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <aside class="aside">
+                <h3>
+                    Make your equipment work for you.
+                </h3>
+
+                <p>
+                    List machinery that spends time unused
+                    and connect with farmers nearby who
+                    need it.
+                </p>
+
+                <ul>
+                    <li>Set your own rental price</li>
+                    <li>Explain availability and usage terms</li>
+                    <li>Share contact details for direct coordination</li>
+                </ul>
+
+                <div class="tip">
+                    Safety tip: Agree on the rental duration,
+                    fuel, transport, deposit and responsibility
+                    for damage before handing over equipment.
+                </div>
+            </aside>
+
+        </div>
+    </section>
+
+    <!-- FIND EQUIPMENT SECTION -->
+
+    <section class="panel" id="usePanel">
+        <div class="toolbar">
+            <div>
+                <h2>Equipment available nearby</h2>
+
+                <div class="helper"
+                    style="margin:5px 0 0">
+                    Browse listings and contact the owner
+                    to arrange a rental.
+                </div>
+            </div>
+
+            <input class="search" id="search"
+                placeholder="Search equipment or location...">
+        </div>
+
+        <div class="listings" id="listingGrid"></div>
+    </section>
+
+</main>
+
+<div class="toast" id="toast" role="status"></div>
+
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+let photoData = [];
+
+let listings = [
+    {
+        name: 'Farm tractor · 45 HP',
+        category: 'Tractor',
+        rate: 900,
+        unit: 'Hour',
+        duration: '2 hours minimum',
+        condition: 'Good',
+        location: 'Sample listing · update location',
+        availability: 'Call to confirm',
+        details: 'Operator available on request. Example listing for preview.',
+        contact: '0000000000',
+        owner: 'Demo owner',
+        image: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800'
+    },
+    {
+        name: 'Power sprayer',
+        category: 'Sprayer',
+        rate: 450,
+        unit: 'Session',
+        duration: 'One session',
+        condition: 'Good',
+        location: 'Sample listing · nearby area',
+        availability: 'Flexible',
+        details: 'Suitable for crop spraying. Example listing for preview.',
+        contact: '0000000000',
+        owner: 'Demo owner',
+        image: 'https://images.unsplash.com/photo-1592982537447-6f2a6a0a2f8d?w=800'
+    },
+    {
+        name: 'Rotavator',
+        category: 'Rotavator',
+        rate: 1200,
+        unit: 'Acre',
+        duration: 'As scheduled',
+        condition: 'Like new',
+        location: 'Sample listing · nearby area',
+        availability: 'Call to confirm',
+        details: 'Confirm tractor compatibility with owner.',
+        contact: '0000000000',
+        owner: 'Demo owner',
+        image: 'https://images.unsplash.com/photo-1523742810063-7c6e1c7f7c4b?w=800'
+    }
+];
+
+// Toast notification
+
+function toast(msg) {
+    $('toast').textContent = msg;
+    $('toast').style.display = 'block';
+
+    setTimeout(() => {
+        $('toast').style.display = 'none';
+    }, 2600);
+}
+
+// Switch tabs
+
+function switchTo(which) {
+    let rent = which === 'rent';
+
+    $('rentPanel').classList.toggle('active', rent);
+    $('usePanel').classList.toggle('active', !rent);
+
+    $('rentTab').classList.toggle('active', rent);
+    $('useTab').classList.toggle('active', !rent);
+
+    $('rentTab').setAttribute('aria-selected', rent);
+    $('useTab').setAttribute('aria-selected', !rent);
+
+    if (!rent) {
+        renderListings();
+    }
+}
+
+$('rentTab').onclick = () => switchTo('rent');
+$('useTab').onclick = () => switchTo('use');
+
+// Upload and preview photos
+
+$('photos').addEventListener('change', e => {
+    photoData = [];
+    $('photoPreview').innerHTML = '';
+
+    [...e.target.files].slice(0, 6).forEach(file => {
+        let reader = new FileReader();
+
+        reader.onload = () => {
+            photoData.push(reader.result);
+
+            let img = document.createElement('img');
+            img.src = reader.result;
+            img.alt = 'Selected equipment photo';
+
+            $('photoPreview').appendChild(img);
+        };
+
+        reader.readAsDataURL(file);
+    });
+});
+
+// Publish a listing
+
+$('listingForm').addEventListener('submit', e => {
+    e.preventDefault();
+
+    let item = {
+        name: $('name').value,
+        category: $('category').value,
+        rate: $('rate').value,
+        unit: $('unit').value,
+        duration: $('duration').value,
+        condition: $('condition').value,
+        location: $('location').value,
+        availability: $('availability').value,
+        details: $('details').value,
+        contact: $('contact').value,
+        owner: $('owner').value || 'Equipment owner',
+        image: photoData[0] || ''
+    };
+
+    listings.unshift(item);
+
+    e.target.reset();
+
+    photoData = [];
+    $('photoPreview').innerHTML = '';
+
+    toast('Listing added to this preview. Open Find equipment to view it.');
+
+    switchTo('use');
+});
+
+// Clear form
+
+$('clearBtn').addEventListener('click', () => {
+    photoData = [];
+    $('photoPreview').innerHTML = '';
+});
+
+// Search listings
+
+$('search').addEventListener('input', renderListings);
+
+// Render equipment cards
+
+function renderListings() {
+    let q = $('search').value.toLowerCase();
+
+    let matches = listings.filter(x =>
+        (x.name + ' ' + x.category + ' ' + x.location)
+            .toLowerCase()
+            .includes(q)
+    );
+
+    let grid = $('listingGrid');
+    grid.innerHTML = '';
+
+    if (!matches.length) {
+        grid.innerHTML = `
+            <div class="empty">
+                No matching equipment yet.
+                Try another search or add a listing.
+            </div>
+        `;
+        return;
+    }
+
+    matches.forEach(x => {
+        let card = document.createElement('article');
+        card.className = 'equipment';
+
+        let img = document.createElement('img');
+        img.src = x.image || '';
+        img.alt = x.name;
+
+        img.onerror = () => {
+            img.style.display = 'none';
+        };
+
+        let body = document.createElement('div');
+        body.className = 'equipbody';
+
+        let head = document.createElement('div');
+        head.className = 'equiphead';
+
+        let title = document.createElement('h3');
+        title.textContent = x.name;
+
+        let price = document.createElement('div');
+        price.className = 'price';
+        price.textContent = '₹' + x.rate;
+
+        let small = document.createElement('small');
+        small.textContent = '/ ' + x.unit.toLowerCase();
+
+        price.appendChild(small);
+        head.append(title, price);
+
+        let tag = document.createElement('span');
+        tag.className = 'tag';
+        tag.textContent = x.condition;
+
+        let meta = document.createElement('div');
+        meta.className = 'meta';
+
+        meta.textContent =
+            '⌖ ' + x.location + '\n' +
+            '◷ ' + (x.duration || x.availability || 'Ask owner') + '\n' +
+            (x.details || '');
+
+        meta.style.whiteSpace = 'pre-line';
+
+        let contact = document.createElement('div');
+        contact.className = 'contactline';
+        contact.textContent =
+            'Owner: ' + x.owner + ' · ' + x.contact;
+
+        let btn = document.createElement('button');
+        btn.className = 'btn';
+        btn.textContent = 'Contact to rent';
+
+        btn.onclick = () => {
+            let digits = x.contact.replace(/\D/g, '');
+
+            if (digits && digits !== '0000000000') {
+                window.location.href = 'tel:' + digits;
+            } else {
+                toast('This is a sample listing. Contact details will appear here for real listings.');
+            }
+        };
+
+        body.append(
+            head,
+            tag,
+            meta,
+            contact,
+            btn
+        );
+
+        card.append(img, body);
+        grid.appendChild(card);
+    });
+}
+
+renderListings();
+</script>
+
+</body>
+</html>

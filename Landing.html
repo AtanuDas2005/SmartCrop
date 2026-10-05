@@ -6,343 +6,2138 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Smart Crop</title>
+<title>SmartCrop | Intelligent Agriculture</title>
+
+<!-- Font Awesome -->
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+>
+
+<!-- Google Fonts -->
+<link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+>
+
 
 <style>
 
-/* GLOBAL */
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-body{
-margin:0;
-font-family:Arial;
-background:#060010;
-color:white;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-section{
-padding:80px 10%;
+html {
+    scroll-behavior: smooth;
 }
 
-/* NAVBAR */
+body {
 
-.navbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 10%;
-background:#060010;
-position:sticky;
-top:0;
+    font-family: 'DM Sans', sans-serif;
+
+    background: #052b1c;
+
+    color: white;
+
+    overflow-x: hidden;
 }
 
-.nav-links a{
-margin:0 15px;
-color:white;
-text-decoration:none;
-cursor:pointer;
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
-.nav-links button{
-background:#00ff88;
-border:none;
-padding:8px 15px;
-border-radius:6px;
-cursor:pointer;
+button,
+input {
+    font-family: inherit;
 }
 
-/* HERO */
 
-.hero{
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-min-height:80vh;
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page {
+
+    min-height: 100vh;
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(2,31,20,0.97),
+            rgba(4,47,30,0.90)
+        );
+
 }
 
-.hero h1{
-font-size:60px;
-margin-top:20px;
+
+/* =========================================================
+   LEAF BACKGROUND
+========================================================= */
+
+.page::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image:
+        url("download (23).jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    opacity: 0.16;
+
+    filter: saturate(0.8);
+
+    z-index: 0;
 }
 
-/* SERVICES */
 
-.services{
-display:flex;
-gap:25px;
+/* DARK OVERLAY */
+
+.page::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at 75% 40%,
+            rgba(190,220,80,0.12),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            90deg,
+            rgba(2,34,22,0.96) 0%,
+            rgba(2,34,22,0.82) 50%,
+            rgba(2,34,22,0.72) 100%
+        );
+
+    z-index: 1;
+
+    pointer-events: none;
 }
 
-.card{
-background:#0f0a1f;
-padding:25px;
-border-radius:10px;
-flex:1;
-transition:.3s;
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container {
+
+    width:
+        min(1250px, calc(100% - 80px));
+
+    margin: auto;
+
+    position: relative;
+
+    z-index: 5;
 }
 
-.card:hover{
-transform:translateY(-5px);
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+
+    height: 90px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.10);
 }
 
-/* ABOUT */
 
-.about{
-display:flex;
-gap:50px;
-align-items:center;
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    font-family:
+        'Space Grotesk',
+        sans-serif;
+
+    font-size: 22px;
+
+    font-weight: 700;
 }
 
-.about img{
-width:350px;
-border-radius:10px;
+
+.logo-icon {
+
+    width: 39px;
+    height: 39px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffb300,
+            #ffd54f
+        );
+
+    color: #07321f;
+
+    box-shadow:
+        0 8px 25px
+        rgba(255,193,7,0.20);
 }
 
-/* LOGIN SIGNUP */
 
-.modal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-height:100%;
-width:100%;
-background:rgba(0,0,0,0.8);
-justify-content:center;
-align-items:center;
+.logo-text span {
+
+    color: #d9e95a;
 }
 
-.modal-box{
-background:#0f0a1f;
-padding:40px;
-border-radius:10px;
-width:300px;
+
+/* =========================================================
+   NAV LINKS
+========================================================= */
+
+.nav-links {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
 }
 
-.modal-box input{
-width:100%;
-padding:10px;
-margin:10px 0;
-border:none;
-background:#1a1433;
-color:white;
+
+.nav-links a {
+
+    position: relative;
+
+    padding:
+        10px 14px;
+
+    color:
+        rgba(255,255,255,0.72);
+
+    font-size: 14px;
+
+    font-weight: 500;
+
+    transition: 0.25s ease;
 }
 
-.modal-box button{
-background:#00ff88;
-border:none;
-padding:10px;
-width:100%;
-cursor:pointer;
+
+.nav-links a:hover {
+
+    color: white;
 }
 
-/* REACTBITS GRADIENT TEXT */
 
-.animated-gradient-text {
-position: relative;
-margin: 0 auto;
-display: flex;
-max-width: fit-content;
-align-items: center;
-justify-content: center;
-border-radius: 1.25rem;
-font-weight: 700;
-font-size:65px;
-overflow: hidden;
+.nav-links a::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 14px;
+    right: 14px;
+
+    bottom: 3px;
+
+    height: 2px;
+
+    border-radius: 10px;
+
+    background: #d9e95a;
+
+    transform:
+        scaleX(0);
+
+    transition: 0.25s ease;
 }
 
-.animated-gradient-text.with-border {
-padding: 0.35rem 0.75rem;
+
+.nav-links a:hover::after {
+
+    transform:
+        scaleX(1);
 }
 
-.gradient-overlay {
-position: absolute;
-inset:0;
-border-radius: inherit;
-background:linear-gradient(270deg,#00ff88,#00d4ff,#7a5cff,#00ff88);
-background-size:600% 600%;
-animation:gradientMove 6s ease infinite;
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.login-btn {
+
+    padding:
+        10px 18px;
+
+    margin-left: 10px;
+
+    border:
+        1px solid rgba(255,255,255,0.18);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
 }
 
-.gradient-overlay::before {
-content:'';
-position:absolute;
-inset:2px;
-border-radius:inherit;
-background:#060010;
+
+.login-btn:hover {
+
+    background:
+        rgba(255,255,255,0.12);
+
+    border-color:
+        rgba(255,255,255,0.30);
 }
 
-.text-content {
-position:relative;
-z-index:2;
-background:linear-gradient(90deg,#00ff88,#00d4ff,#7a5cff);
-background-clip:text;
--webkit-background-clip:text;
-color:transparent;
+
+/* =========================================================
+   SIGNUP
+========================================================= */
+
+.signup-btn {
+
+    padding:
+        10px 18px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background:
+        #d9e95a;
+
+    color: #092d1d;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
 }
 
-@keyframes gradientMove {
-0%{background-position:0%}
-50%{background-position:100%}
-100%{background-position:0%}
+
+.signup-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 25px
+        rgba(217,233,90,0.18);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+    min-height:
+        calc(100vh - 90px);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    position: relative;
+
+    padding:
+        70px 0 100px;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hero-content {
+
+    max-width: 900px;
+
+    margin: auto;
+
+    position: relative;
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        8px 14px;
+
+    margin-bottom: 28px;
+
+    border:
+        1px solid
+        rgba(217,233,90,0.25);
+
+    border-radius: 100px;
+
+    background:
+        rgba(217,233,90,0.07);
+
+    color: #d9e95a;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.4px;
+}
+
+
+.badge-dot {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #d9e95a;
+
+    box-shadow:
+        0 0 12px #d9e95a;
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.hero h1 {
+
+    font-family:
+        'Space Grotesk',
+        sans-serif;
+
+    font-size:
+        clamp(55px, 8vw, 100px);
+
+    line-height: 0.98;
+
+    letter-spacing: -5px;
+
+    margin-bottom: 30px;
+}
+
+
+.hero h1 .white {
+
+    color: white;
+}
+
+
+.hero h1 .green {
+
+    color: #d9e95a;
+
+    display: block;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.hero-description {
+
+    max-width: 670px;
+
+    margin:
+        0 auto 38px;
+
+    color:
+        rgba(255,255,255,0.65);
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
+
+.hero-buttons {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 14px;
+}
+
+
+/* PRIMARY */
+
+.dashboard-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 11px;
+
+    padding:
+        15px 24px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffb300,
+            #ffd54f
+        );
+
+    color: #102518;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 12px 30px
+        rgba(255,193,7,0.18);
+
+    transition: 0.25s ease;
+}
+
+
+.dashboard-btn:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 16px 35px
+        rgba(255,193,7,0.28);
+}
+
+
+/* SECONDARY */
+
+.explore-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    padding:
+        14px 22px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.17);
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    color:
+        rgba(255,255,255,0.88);
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+
+.explore-btn:hover {
+
+    background:
+        rgba(255,255,255,0.10);
+}
+
+
+/* =========================================================
+   HERO ORBIT
+========================================================= */
+
+.orbit {
+
+    position: absolute;
+
+    width: 520px;
+    height: 520px;
+
+    border:
+        1px solid
+        rgba(217,233,90,0.08);
+
+    border-radius: 50%;
+
+    top: 50%;
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    pointer-events: none;
+}
+
+
+.orbit::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 50px;
+
+    border:
+        1px solid
+        rgba(217,233,90,0.05);
+
+    border-radius: 50%;
+}
+
+
+.orbit::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    top: 40px;
+    right: 80px;
+
+    border-radius: 50%;
+
+    background: #d9e95a;
+
+    box-shadow:
+        0 0 20px #d9e95a;
+
+    animation:
+        orbitDot 5s linear infinite;
+}
+
+
+@keyframes orbitDot {
+
+    from {
+        transform: rotate(0deg) translateX(200px);
+    }
+
+    to {
+        transform: rotate(360deg) translateX(200px);
+    }
+}
+
+
+/* =========================================================
+   FLOATING LEAF ELEMENTS
+========================================================= */
+
+.leaf {
+
+    position: absolute;
+
+    color:
+        rgba(217,233,90,0.18);
+
+    font-size: 25px;
+
+    animation:
+        float 6s ease-in-out infinite;
+}
+
+
+.leaf-one {
+
+    left: 8%;
+
+    top: 28%;
+}
+
+
+.leaf-two {
+
+    right: 10%;
+
+    top: 25%;
+
+    font-size: 18px;
+
+    animation-delay: 1.5s;
+}
+
+
+.leaf-three {
+
+    left: 17%;
+
+    bottom: 17%;
+
+    font-size: 16px;
+
+    animation-delay: 3s;
+}
+
+
+.leaf-four {
+
+    right: 18%;
+
+    bottom: 20%;
+
+    font-size: 22px;
+
+    animation-delay: 2s;
+}
+
+
+@keyframes float {
+
+    0%,
+    100% {
+
+        transform:
+            translateY(0)
+            rotate(0deg);
+    }
+
+    50% {
+
+        transform:
+            translateY(-15px)
+            rotate(8deg);
+    }
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 55px;
+
+    margin-top: 60px;
+}
+
+
+.stat {
+
+    text-align: left;
+}
+
+
+.stat-number {
+
+    font-family:
+        'Space Grotesk',
+        sans-serif;
+
+    font-size: 25px;
+
+    font-weight: 700;
+
+    color: #d9e95a;
+}
+
+
+.stat-label {
+
+    margin-top: 3px;
+
+    color:
+        rgba(255,255,255,0.42);
+
+    font-size: 11px;
+}
+
+
+.stat-divider {
+
+    width: 1px;
+
+    height: 35px;
+
+    background:
+        rgba(255,255,255,0.12);
+}
+
+
+/* =========================================================
+   FEATURES SECTION
+========================================================= */
+
+.features {
+
+    padding:
+        100px 0;
+
+    position: relative;
+
+    z-index: 5;
+}
+
+
+.section-heading {
+
+    text-align: center;
+
+    margin-bottom: 45px;
+}
+
+
+.section-heading span {
+
+    color: #d9e95a;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+.section-heading h2 {
+
+    margin-top: 12px;
+
+    font-family:
+        'Space Grotesk',
+        sans-serif;
+
+    font-size: 42px;
+
+    letter-spacing: -1.5px;
+}
+
+
+.section-heading p {
+
+    max-width: 550px;
+
+    margin:
+        13px auto 0;
+
+    color:
+        rgba(255,255,255,0.50);
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   FEATURE GRID
+========================================================= */
+
+.feature-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+
+.feature-card {
+
+    padding: 30px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.09);
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,0.045);
+
+    backdrop-filter:
+        blur(12px);
+
+    transition: 0.3s ease;
+}
+
+
+.feature-card:hover {
+
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(217,233,90,0.22);
+
+    background:
+        rgba(255,255,255,0.07);
+}
+
+
+.feature-icon {
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 22px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(217,233,90,0.09);
+
+    color: #d9e95a;
+
+    font-size: 19px;
+}
+
+
+.feature-card h3 {
+
+    font-family:
+        'Space Grotesk',
+        sans-serif;
+
+    font-size: 18px;
+
+    margin-bottom: 10px;
+}
+
+
+.feature-card p {
+
+    color:
+        rgba(255,255,255,0.48);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about {
+
+    padding:
+        100px 0;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 70px;
+
+    align-items: center;
+}
+
+
+.about-image {
+
+    height: 450px;
+
+    border-radius: 25px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    background:
+        url("download (23).jpg")
+        center / cover no-repeat;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.10);
+}
+
+
+.about-image::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(4,42,27,0.20),
+            rgba(4,42,27,0.60)
+        );
+}
+
+
+.about-content span {
+
+    color: #d9e95a;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+.about-content h2 {
+
+    margin:
+        14px 0 20px;
+
+    font-family:
+        'Space Grotesk',
+        sans-serif;
+
+    font-size: 45px;
+
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+}
+
+
+.about-content p {
+
+    color:
+        rgba(255,255,255,0.55);
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+    margin-bottom: 15px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    background:
+        rgba(0,0,0,0.75);
+
+    backdrop-filter:
+        blur(10px);
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+
+.modal-box {
+
+    width: 360px;
+
+    padding: 35px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.12);
+
+    border-radius: 20px;
+
+    background:
+        #082f20;
+
+    box-shadow:
+        0 30px 80px
+        rgba(0,0,0,0.45);
+
+    animation:
+        modalIn .3s ease;
+}
+
+
+@keyframes modalIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(20px)
+            scale(.97);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+.modal-box h2 {
+
+    font-family:
+        'Space Grotesk',
+        sans-serif;
+
+    margin-bottom: 22px;
+}
+
+
+.modal-box input {
+
+    width: 100%;
+
+    padding:
+        12px 14px;
+
+    margin:
+        7px 0;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.10);
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,0.06);
+
+    color: white;
+
+    font-size: 13px;
+}
+
+
+.modal-box input:focus {
+
+    border-color:
+        rgba(217,233,90,0.5);
+}
+
+
+.modal-primary {
+
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #d9e95a;
+
+    color: #082d1e;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+.close-btn {
+
+    width: 100%;
+
+    margin-top: 8px;
+
+    padding: 11px;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.12);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,0.05);
+
+    color: white;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width: 850px) {
+
+    .container {
+
+        width:
+            calc(100% - 35px);
+    }
+
+    .navbar {
+
+        height: auto;
+
+        padding:
+            20px 0;
+
+        flex-direction: column;
+
+        gap: 18px;
+
+        align-items: flex-start;
+    }
+
+    .nav-links {
+
+        width: 100%;
+
+        flex-wrap: wrap;
+    }
+
+    .hero {
+
+        min-height:
+            calc(100vh - 130px);
+    }
+
+    .hero h1 {
+
+        font-size: 55px;
+
+        letter-spacing: -3px;
+    }
+
+    .feature-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .about {
+
+        grid-template-columns: 1fr;
+    }
+
+    .about-image {
+
+        height: 350px;
+    }
+}
+
+
+@media(max-width: 550px) {
+
+    .hero {
+
+        padding:
+            60px 0;
+    }
+
+    .hero h1 {
+
+        font-size: 43px;
+
+        letter-spacing: -2px;
+    }
+
+    .hero-description {
+
+        font-size: 14px;
+    }
+
+    .hero-buttons {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .dashboard-btn,
+    .explore-btn {
+
+        justify-content: center;
+    }
+
+    .stats {
+
+        gap: 18px;
+
+        flex-wrap: wrap;
+    }
+
+    .stat-divider {
+
+        display: none;
+    }
+
+    .section-heading h2 {
+
+        font-size: 34px;
+    }
+
+    .about-content h2 {
+
+        font-size: 36px;
+    }
+
 }
 
 </style>
+
 </head>
+
 
 <body>
 
-<!-- NAVBAR -->
 
-<div class="navbar">
+<div class="page">
 
-<h2>Smart Crop</h2>
 
-<div class="nav-links">
+    <div class="container">
 
-<a href="#">Home</a>
-<a href="#about">About</a>
-<a href="#services">Services</a>
 
-<button onclick="openLogin()">Login</button>
-<button onclick="openSignup()">Signup</button>
+        <!-- =====================================================
+             NAVBAR
+        ====================================================== -->
+
+        <header class="navbar">
+
+
+            <a
+                href="Landing.html"
+                class="logo"
+            >
+
+                <div class="logo-icon">
+
+                    <i class="fa-solid fa-seedling"></i>
+
+                </div>
+
+
+                <div class="logo-text">
+
+                    Smart<span>Crop</span>
+
+                </div>
+
+            </a>
+
+
+            <div class="nav-links">
+
+                <a href="#home">
+                    Home
+                </a>
+
+                <a href="#features">
+                    Features
+                </a>
+
+                <a href="#about">
+                    About
+                </a>
+
+
+                <button
+                    class="login-btn"
+                    onclick="openLogin()"
+                >
+                    Login
+                </button>
+
+
+                <button
+                    class="signup-btn"
+                    onclick="openSignup()"
+                >
+                    Get Started
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+
+        <section
+            class="hero"
+            id="home"
+        >
+
+
+            <div class="orbit"></div>
+
+
+            <!-- floating leaves -->
+
+            <i
+                class="fa-solid fa-leaf leaf leaf-one"
+            ></i>
+
+            <i
+                class="fa-solid fa-leaf leaf leaf-two"
+            ></i>
+
+            <i
+                class="fa-solid fa-leaf leaf leaf-three"
+            ></i>
+
+            <i
+                class="fa-solid fa-leaf leaf leaf-four"
+            ></i>
+
+
+            <div class="hero-content">
+
+
+                <div class="badge">
+
+                    <span class="badge-dot"></span>
+
+                    Intelligent agriculture platform
+
+                </div>
+
+
+                <h1>
+
+                    <span class="white">
+                        Grow smarter.
+                    </span>
+
+                    <span class="green">
+                        Farm better.
+                    </span>
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    SmartCrop combines machine learning,
+                    weather intelligence, market information
+                    and agricultural advisory tools to help
+                    farmers make more informed decisions.
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+
+                    <!-- DASHBOARD BUTTON -->
+
+                    <button
+                        class="dashboard-btn"
+                        onclick="goDashboard()"
+                    >
+
+                        Enter SmartCrop
+
+                        <i
+                            class="fa-solid fa-arrow-right"
+                        ></i>
+
+                    </button>
+
+
+                    <button
+                        class="explore-btn"
+                        onclick="scrollToFeatures()"
+                    >
+
+                        Explore Features
+
+                        <i
+                            class="fa-solid fa-arrow-down"
+                        ></i>
+
+                    </button>
+
+
+                </div>
+
+
+                <!-- STATS -->
+
+                <div class="stats">
+
+
+                    <div class="stat">
+
+                        <div class="stat-number">
+                            22+
+                        </div>
+
+                        <div class="stat-label">
+                            Crop varieties
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-divider"></div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-number">
+                            ML
+                        </div>
+
+                        <div class="stat-label">
+                            Crop recommendation
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-divider"></div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-number">
+                            Live
+                        </div>
+
+                        <div class="stat-label">
+                            Weather insights
+                        </div>
+
+                    </div>
+
+
+                    <div class="stat-divider"></div>
+
+
+                    <div class="stat">
+
+                        <div class="stat-number">
+                            24/7
+                        </div>
+
+                        <div class="stat-label">
+                            Digital advisory
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             FEATURES
+        ====================================================== -->
+
+        <section
+            class="features"
+            id="features"
+        >
+
+
+            <div class="section-heading">
+
+                <span>
+                    What SmartCrop offers
+                </span>
+
+                <h2>
+                    Everything in one place.
+                </h2>
+
+                <p>
+
+                    A simple collection of tools designed
+                    to bring important agricultural information
+                    together.
+
+                </p>
+
+            </div>
+
+
+            <div class="feature-grid">
+
+
+                <!-- CARD 1 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i
+                            class="fa-solid fa-seedling"
+                        ></i>
+
+                    </div>
+
+                    <h3>
+                        Crop Recommendation
+                    </h3>
+
+                    <p>
+
+                        Get crop suggestions using
+                        soil, temperature, rainfall
+                        and seasonal conditions.
+
+                    </p>
+
+                </div>
+
+
+                <!-- CARD 2 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i
+                            class="fa-solid fa-cloud-sun"
+                        ></i>
+
+                    </div>
+
+                    <h3>
+                        Weather Intelligence
+                    </h3>
+
+                    <p>
+
+                        View current weather conditions
+                        and upcoming forecasts to support
+                        farming decisions.
+
+                    </p>
+
+                </div>
+
+
+                <!-- CARD 3 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i
+                            class="fa-solid fa-chart-line"
+                        ></i>
+
+                    </div>
+
+                    <h3>
+                        Market Information
+                    </h3>
+
+                    <p>
+
+                        Access agricultural market-price
+                        information and understand
+                        available crop prices.
+
+                    </p>
+
+                </div>
+
+
+                <!-- CARD 4 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i
+                            class="fa-solid fa-bug"
+                        ></i>
+
+                    </div>
+
+                    <h3>
+                        Pest Advisory
+                    </h3>
+
+                    <p>
+
+                        Explore crop and symptom-based
+                        pest information and recommended
+                        actions.
+
+                    </p>
+
+                </div>
+
+
+                <!-- CARD 5 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i
+                            class="fa-solid fa-book-open"
+                        ></i>
+
+                    </div>
+
+                    <h3>
+                        Crop Guide
+                    </h3>
+
+                    <p>
+
+                        Access agricultural information
+                        and crop-production resources
+                        from the platform.
+
+                    </p>
+
+                </div>
+
+
+                <!-- CARD 6 -->
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+
+                        <i
+                            class="fa-solid fa-chart-pie"
+                        ></i>
+
+                    </div>
+
+                    <h3>
+                        Data Driven Decisions
+                    </h3>
+
+                    <p>
+
+                        Bring multiple agricultural
+                        information sources together
+                        for better-informed decisions.
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =====================================================
+             ABOUT
+        ====================================================== -->
+
+        <section
+            class="about"
+            id="about"
+        >
+
+
+            <div class="about-image"></div>
+
+
+            <div class="about-content">
+
+
+                <span>
+                    About SmartCrop
+                </span>
+
+
+                <h2>
+                    Technology that works
+                    closer to the farm.
+                </h2>
+
+
+                <p>
+
+                    SmartCrop is an agriculture-assistance
+                    platform designed to bring crop
+                    recommendations, weather information,
+                    market data and pest advisory tools
+                    into one accessible experience.
+
+                </p>
+
+
+                <p>
+
+                    The platform combines machine learning
+                    with agricultural information to help
+                    users explore data and make more
+                    informed farming decisions.
+
+                </p>
+
+
+                <button
+                    class="dashboard-btn"
+                    onclick="goDashboard()"
+                >
+
+                    Explore SmartCrop
+
+                    <i
+                        class="fa-solid fa-arrow-right"
+                    ></i>
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+    </div>
+
 
 </div>
 
-</div>
 
-<!-- HERO -->
+<!-- =========================================================
+     LOGIN MODAL
+========================================================= -->
 
-<section class="hero">
+<div
+    class="modal"
+    id="loginModal"
+>
 
-<div class="animated-gradient-text with-border">
-<div class="gradient-overlay"></div>
-<span class="text-content">Smart Crop</span>
-</div>
 
-<h1>AI Powered Crop Recommendation</h1>
+    <div class="modal-box">
 
-<p>
-Helping farmers grow the right crop using smart technology and data driven insights.
-</p>
 
-</section>
+        <h2>
+            Welcome back
+        </h2>
 
-<!-- SERVICES -->
 
-<section id="services">
+        <input
+            type="email"
+            placeholder="Email address"
+        >
 
-<h2>Smart Features</h2>
 
-<div class="services">
+        <input
+            type="password"
+            placeholder="Password"
+        >
 
-<div class="card">
-<h3>Crop Prediction</h3>
-<p>Suggests the best crop based on soil and weather data.</p>
-</div>
 
-<div class="card">
-<h3>Pest Detection</h3>
-<p>Detect plant diseases using AI image analysis.</p>
-</div>
+        <button
+            class="modal-primary"
+        >
+            Login
+        </button>
 
-<div class="card">
-<h3>Market Price Tracker</h3>
-<p>Shows latest crop prices in markets.</p>
-</div>
 
-</div>
+        <button
+            class="close-btn"
+            onclick="closeModal()"
+        >
+            Close
+        </button>
 
-</section>
 
-<!-- ABOUT -->
+    </div>
 
-<section id="about">
-
-<div class="about">
-
-<img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef">
-
-<div>
-
-<h2>About Smart Crop</h2>
-
-<p>
-Smart Crop is an AI powered agriculture platform designed to help farmers
-make better crop decisions using soil data, climate information,
-and machine learning predictions.
-</p>
-
-<p>
-Our goal is to increase crop yield, reduce risk, and promote
-sustainable farming practices.
-</p>
 
 </div>
 
+
+<!-- =========================================================
+     SIGNUP MODAL
+========================================================= -->
+
+<div
+    class="modal"
+    id="signupModal"
+>
+
+
+    <div class="modal-box">
+
+
+        <h2>
+            Start with SmartCrop
+        </h2>
+
+
+        <input
+            type="text"
+            placeholder="Your name"
+        >
+
+
+        <input
+            type="email"
+            placeholder="Email address"
+        >
+
+
+        <input
+            type="password"
+            placeholder="Create password"
+        >
+
+
+        <button
+            class="modal-primary"
+        >
+            Create Account
+        </button>
+
+
+        <button
+            class="close-btn"
+            onclick="closeModal()"
+        >
+            Close
+        </button>
+
+
+    </div>
+
+
 </div>
 
-</section>
-
-<!-- LOGIN MODAL -->
-
-<div class="modal" id="loginModal">
-
-<div class="modal-box">
-
-<h2>Login</h2>
-
-<input placeholder="Email">
-<input placeholder="Password" type="password">
-
-<button>Login</button>
-
-<br><br>
-
-<button onclick="closeModal()">Close</button>
-
-</div>
-
-</div>
-
-<!-- SIGNUP MODAL -->
-
-<div class="modal" id="signupModal">
-
-<div class="modal-box">
-
-<h2>Signup</h2>
-
-<input placeholder="Name">
-<input placeholder="Email">
-<input placeholder="Password" type="password">
-
-<button>Create Account</button>
-
-<br><br>
-
-<button onclick="closeModal()">Close</button>
-
-</div>
-
-</div>
 
 <script>
 
-function openLogin(){
-document.getElementById("loginModal").style.display="flex"
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+function goDashboard() {
+
+    window.location.href = "Dashboard.html";
+
 }
 
-function openSignup(){
-document.getElementById("signupModal").style.display="flex"
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+function scrollToFeatures() {
+
+    document
+        .getElementById("features")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
 }
 
-function closeModal(){
-document.getElementById("loginModal").style.display="none"
-document.getElementById("signupModal").style.display="none"
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+function openLogin() {
+
+    document
+        .getElementById("loginModal")
+        .style.display = "flex";
+
 }
+
+
+/* =========================================================
+   SIGNUP
+========================================================= */
+
+function openSignup() {
+
+    document
+        .getElementById("signupModal")
+        .style.display = "flex";
+
+}
+
+
+/* =========================================================
+   CLOSE
+========================================================= */
+
+function closeModal() {
+
+    document
+        .getElementById("loginModal")
+        .style.display = "none";
+
+
+    document
+        .getElementById("signupModal")
+        .style.display = "none";
+
+}
+
+
+/* =========================================================
+   CLICK OUTSIDE MODAL
+========================================================= */
+
+window.onclick = function(event) {
+
+    const login =
+        document.getElementById("loginModal");
+
+    const signup =
+        document.getElementById("signupModal");
+
+
+    if (event.target === login) {
+
+        login.style.display = "none";
+
+    }
+
+
+    if (event.target === signup) {
+
+        signup.style.display = "none";
+
+    }
+
+};
 
 </script>
 
+
 </body>
+
 </html>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,108 +14,129 @@
 <style>
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
-
-/* Background */
 
 body{
-height:100vh;
-background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef') center/cover no-repeat;
-display:flex;
-align-items:center;
-justify-content:center;
-color:white;
+    min-height:100vh;
+    background:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef') center/cover no-repeat;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    padding:20px;
 }
-
-/* Dark overlay */
 
 body::before{
-content:"";
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-z-index:0;
+    content:"";
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+    z-index:0;
 }
-
-/* Main container */
 
 .container{
-position:relative;
-z-index:1;
-display:flex;
-gap:40px;
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(20px);
-padding:40px;
-border-radius:20px;
-width:900px;
+    position:relative;
+    z-index:1;
+    display:flex;
+    gap:40px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(20px);
+    padding:40px;
+    border-radius:20px;
+    width:900px;
+    max-width:100%;
 }
 
-/* Left side text */
-
 .info{
-flex:1;
+    flex:1;
 }
 
 .info h1{
-font-size:36px;
-margin-bottom:15px;
+    font-size:36px;
+    margin-bottom:15px;
 }
 
 .info p{
-opacity:0.8;
-line-height:1.6;
+    opacity:0.8;
+    line-height:1.6;
 }
-
-/* Form card */
 
 .card{
-flex:1;
-background:rgba(255,255,255,0.08);
-padding:30px;
-border-radius:15px;
+    flex:1;
+    background:rgba(255,255,255,0.08);
+    padding:30px;
+    border-radius:15px;
 }
 
-/* Inputs */
-
 select,input{
-width:100%;
-padding:12px;
-margin-top:12px;
-border:none;
-border-radius:8px;
-outline:none;
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    border:none;
+    border-radius:8px;
+    outline:none;
+}
+
+input:focus,select:focus{
+    box-shadow:0 0 0 2px #f4b400;
 }
 
 button{
-margin-top:20px;
-width:100%;
-padding:14px;
-border:none;
-border-radius:10px;
-background:#f4b400;
-color:black;
-font-weight:600;
-cursor:pointer;
+    margin-top:20px;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    background:#f4b400;
+    color:black;
+    font-weight:600;
+    cursor:pointer;
 }
 
 button:hover{
-background:#ffcc00;
+    background:#ffcc00;
 }
 
-/* Result */
-
 #result{
-margin-top:20px;
-font-size:18px;
-font-weight:500;
+    margin-top:20px;
+    font-size:18px;
+    font-weight:500;
+    line-height:1.6;
+}
+
+.error{
+    color:#ff7777;
+}
+
+.success{
+    color:#b9ffb9;
+}
+
+.limits{
+    font-size:12px;
+    opacity:0.7;
+    margin-top:5px;
+}
+
+@media(max-width:700px){
+
+    .container{
+        flex-direction:column;
+        gap:25px;
+        padding:25px;
+    }
+
+    .info h1{
+        font-size:28px;
+    }
+
 }
 
 </style>
@@ -125,86 +147,194 @@ font-weight:500;
 
 <div class="container">
 
-<div class="info">
+    <div class="info">
 
-<h1>AI Crop Recommendation</h1>
+        <h1>AI Crop Recommendation</h1>
 
-<p>
-SmartCrop analyzes soil, weather and seasonal conditions to suggest
-the most suitable crop for maximum yield and profit.
-</p>
+        <p>
+        SmartCrop analyzes soil, weather and seasonal conditions
+        to suggest the most suitable crop for your farm.
+        </p>
+
+        <br>
+
+        <p>
+        Enter your soil type, temperature, rainfall and season
+        to receive an AI-powered crop recommendation.
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <select id="soil" required>
+
+            <option value="">Select Soil Type</option>
+
+            <option value="loamy">Loamy</option>
+            <option value="sandy">Sandy</option>
+            <option value="clay">Clay</option>
+            <option value="black">Black</option>
+
+        </select>
+
+        <input
+            type="number"
+            id="temp"
+            placeholder="Temperature (°C)"
+            min="0"
+            max="50"
+            step="any"
+            required
+        >
+
+        <div class="limits">
+            Allowed Temperature: 0°C - 50°C
+        </div>
+
+        <input
+            type="number"
+            id="rain"
+            placeholder="Rainfall (mm)"
+            min="0"
+            max="500"
+            step="any"
+            required
+        >
+
+        <div class="limits">
+            Allowed Rainfall: 0 - 500 mm
+        </div>
+
+        <select id="season" required>
+
+            <option value="">Select Season</option>
+
+            <option value="summer">Summer</option>
+            <option value="winter">Winter</option>
+            <option value="monsoon">Monsoon</option>
+
+        </select>
+
+        <button onclick="recommendCrop()">
+            Get Recommendation
+        </button>
+
+        <div id="result"></div>
+
+    </div>
 
 </div>
 
-
-<div class="card">
-
-<select id="soil">
-<option value="">Select Soil Type</option>
-<option value="loamy">Loamy</option>
-<option value="sandy">Sandy</option>
-<option value="clay">Clay</option>
-<option value="black">Black</option>
-</select>
-
-<input type="number" id="temp" placeholder="Temperature (°C)">
-
-<input type="number" id="rain" placeholder="Rainfall (mm)">
-
-<select id="season">
-<option value="">Select Season</option>
-<option value="summer">Summer</option>
-<option value="winter">Winter</option>
-<option value="monsoon">Monsoon</option>
-</select>
-
-<button onclick="recommendCrop()">Get Recommendation</button>
-
-<div id="result"></div>
-
-</div>
-
-</div>
 <script>
 
 async function recommendCrop(){
 
-let soil = document.getElementById("soil").value
-let temp = document.getElementById("temp").value
-let rain = document.getElementById("rain").value
-let season = document.getElementById("season").value
+    let soil = document.getElementById("soil").value;
 
-if(temp=="" || rain==""){
-document.getElementById("result").innerHTML="Please enter temperature and rainfall"
-return
-}
+    let temp = document.getElementById("temp").value;
 
-let response = await fetch("http://127.0.0.1:5000/predict",{
+    let rain = document.getElementById("rain").value;
 
-method:"POST",
+    let season = document.getElementById("season").value;
 
-headers:{
-"Content-Type":"application/json"
-},
+    let resultBox = document.getElementById("result");
 
-body:JSON.stringify({
-soil:soil,
-temperature:temp,
-rainfall:rain,
-season:season
-})
+    // Check empty inputs
 
-})
+    if(soil === "" || temp === "" || rain === "" || season === ""){
 
-let result = await response.json()
+        resultBox.innerHTML =
+        "<span class='error'>Please fill all the fields.</span>";
 
-document.getElementById("result").innerHTML =
-"🌾 Recommended Crop: <b>"+result.crop+"</b>"
+        return;
+
+    }
+
+    temp = Number(temp);
+
+    rain = Number(rain);
+
+    // Temperature validation
+
+    if(!Number.isFinite(temp) || temp < 0 || temp > 50){
+
+        resultBox.innerHTML =
+        "<span class='error'>Temperature must be between 0°C and 50°C.</span>";
+
+        return;
+
+    }
+
+    // Rainfall validation
+
+    if(!Number.isFinite(rain) || rain < 0 || rain > 500){
+
+        resultBox.innerHTML =
+        "<span class='error'>Rainfall must be between 0 mm and 500 mm.</span>";
+
+        return;
+
+    }
+
+    resultBox.innerHTML = "Analyzing crop conditions...";
+
+    try{
+
+        let response = await fetch("http://127.0.0.1:5000/predict",{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+
+                soil:soil,
+
+                temperature:temp,
+
+                rainfall:rain,
+
+                season:season
+
+            })
+
+        });
+
+        let data = await response.json();
+
+        if(!response.ok){
+
+            resultBox.innerHTML =
+            "<span class='error'>" +
+            (data.error || "Prediction failed.") +
+            "</span>";
+
+            return;
+
+        }
+
+        resultBox.innerHTML =
+        "<span class='success'>🌾 Recommended Crop: <b>" +
+        data.crop +
+        "</b></span>";
+
+    }
+
+    catch(error){
+
+        resultBox.innerHTML =
+        "<span class='error'>Unable to connect to SmartCrop server. Please start app.py.</span>";
+
+        console.error(error);
+
+    }
 
 }
 
 </script>
-<script src="crop.js"></script>
 
 </body>
 

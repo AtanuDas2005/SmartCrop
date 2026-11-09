@@ -1065,7 +1065,7 @@ nav a:hover::after {
             <nav>
 
                 <a
-                    href="AGRICULTURE.pdf"
+                    href="https://tnagriculture.in/dashboard/book/cpg"
                     target="_blank"
                 >
                     <i class="fa-regular fa-file-lines"></i>
@@ -1222,13 +1222,37 @@ nav a:hover::after {
 
 
                     <div class="features-count">
-                        04 FEATURES
+                        05 FEATURES
                     </div>
 
                 </div>
 
 
                 <div class="cards">
+
+                                        
+                    <!-- PEST DETECTION -->
+                    <div class="card" onclick="goPest()">
+
+                        <span class="card-tag">CNN / AI</span>
+
+                        <div class="card-icon">
+                            <i class="fa-solid fa-bug"></i>
+                        </div>
+
+                        <h3>Pest Detection</h3>
+
+                        <p>
+                            Upload a crop image to identify pests
+                            and get help protecting your crops.
+                        </p>
+
+                        <div class="card-arrow">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+
+                    </div>
+
 
 
                     <!-- WEATHER -->
@@ -1433,20 +1457,26 @@ nav a:hover::after {
 ========================================================= */
 
 function goWeather() {
-    window.location.href = "Weather.html";
+    window.location.href = "/Weather.html";
 }
 
 function goCrop() {
-    window.location.href = "crop.html";
+    window.location.href = "/crop.html";
 }
 
 function goEquipment() {
-    window.location.href = "equipment.html";
+    window.location.href = "/equipment.html";
 }
 
 function goMarket() {
-    window.location.href = "MarketPrices.html";
+    window.location.href = "/MarketPrices.html";
 }
+
+
+function goPest() {
+    window.location.href = "/pest.html";
+}
+
 
 
 /* =========================================================
